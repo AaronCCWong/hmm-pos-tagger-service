@@ -1,9 +1,11 @@
 package com.hmm.postagger.utils;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class BigramModel {
@@ -27,6 +29,40 @@ public class BigramModel {
         tagWordCount = new HashMap<>();
         wordCount = new HashMap<>();
         wordTagCount = new HashMap<>();
+    }
+
+    public void train(InputStream file) {
+        try {
+            Scanner sc = new Scanner(file);
+            String prevTag = "";
+
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                if (line.isEmpty()) {
+                    prevTag = "";
+                    continue;
+                }
+
+                String[] wordTag = line.split("\t");
+                String word = wordTag[0];
+                String tag = wordTag[1];
+
+                incrementWordCount(word);
+                incrementTagCount(tag);
+                incrementTagWordCount(tag, word);
+                if (prevTag != null && !prevTag.isEmpty()) {
+                    incrementTagTansitionCount(prevTag, tag);
+                } else if (prevTag.isEmpty()) {
+                    incrementTagStartCount(tag);
+                }
+                prevTag = tag;
+            }
+
+            sc.close();
+        } catch (Exception e) {
+            System.err.println(e);
+            System.exit(1);
+        }
     }
 
     public List<String> getWords(boolean upperCase) {
