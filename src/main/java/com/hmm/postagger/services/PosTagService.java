@@ -2,6 +2,8 @@ package com.hmm.postagger.services;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -23,8 +25,7 @@ public class PosTagService {
 
     public PosTagService() throws FileNotFoundException {
         System.out.println("Training HMM model...");
-        File trainFile = new File(getClass().getResource("/WSJ_02-21.pos").getFile());
-        model = train(trainFile);
+        model = train(getClass().getResourceAsStream("/static/WSJ_02-21.pos"));
 
         System.out.println("Using a maximum suffix length of " + MAX_SUFFIX_LENGTH);
         System.out.println("Using words with a maximum frequency of " + MAX_WORD_FREQUENCY + " to create suffix tree");
@@ -44,7 +45,7 @@ public class PosTagService {
         return tags;
     }
 
-    private BigramModel train(File file) throws FileNotFoundException {
+    private BigramModel train(InputStream file) throws FileNotFoundException {
         BigramModel bigramModel = new BigramModel();
         Scanner sc = new Scanner(file);
         String prevTag = "";
