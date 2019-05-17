@@ -23,8 +23,7 @@ public class PosTagService {
 
     public PosTagService() throws FileNotFoundException {
         System.out.println("Training HMM model...");
-        System.out.println(getClass().getResource("/static/WSJ_02-21.pos"));
-        File trainFile = new File(getClass().getResource("/static/WSJ_02-21.pos").getFile());
+        File trainFile = new File(getClass().getResource("/WSJ_02-21.pos").getFile());
         model = train(trainFile);
 
         System.out.println("Using a maximum suffix length of " + MAX_SUFFIX_LENGTH);
