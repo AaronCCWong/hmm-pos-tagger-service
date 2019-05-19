@@ -17,7 +17,7 @@ public class PosTagController {
 
     public PosTagController() throws FileNotFoundException {}
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://www.aaronccwong.com")
     @RequestMapping("/tagSentence")
     public List<String> tagSentence(@RequestParam(value = "sentence") String sentence) {
         return posTagService.tagSentence(sentence);
