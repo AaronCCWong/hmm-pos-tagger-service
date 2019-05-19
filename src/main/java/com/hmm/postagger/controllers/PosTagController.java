@@ -6,7 +6,7 @@ import java.util.List;
 import com.hmm.postagger.services.PosTagService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +18,7 @@ public class PosTagController {
     public PosTagController() throws FileNotFoundException {}
 
     @CrossOrigin(origins = "https://www.aaronccwong.com")
-    @RequestMapping("/tagSentence")
+    @GetMapping("/tagSentence")
     public List<String> tagSentence(@RequestParam(value = "sentence") String sentence) {
         return posTagService.tagSentence(sentence);
     }
