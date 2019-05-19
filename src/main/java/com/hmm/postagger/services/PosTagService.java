@@ -26,9 +26,9 @@ public class PosTagService {
         System.out.println("Using a maximum suffix length of " + MAX_SUFFIX_LENGTH);
         System.out.println("Using words with a maximum frequency of " + MAX_WORD_FREQUENCY + " to create suffix tree");
 
-        SuffixTreeBuilder treeBuilder = new SuffixTreeBuilder(MAX_SUFFIX_LENGTH, MAX_WORD_FREQUENCY);
-        upperCaseTree = treeBuilder.buildUpperCaseTree(model);
-        lowerCaseTree = treeBuilder.buildLowerCaseTree(model);
+        SuffixTreeBuilder treeBuilder = new SuffixTreeBuilder(model, MAX_SUFFIX_LENGTH, MAX_WORD_FREQUENCY);
+        upperCaseTree = treeBuilder.buildUpperCaseTree();
+        lowerCaseTree = treeBuilder.buildLowerCaseTree();
         System.out.println("Finished training.");
 
         viterbi = new Viterbi(model, upperCaseTree, lowerCaseTree, MAX_SUFFIX_LENGTH);
